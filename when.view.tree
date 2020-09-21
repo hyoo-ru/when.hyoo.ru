@@ -1,0 +1,17 @@
+$hyoo_when $mol_page
+	title @ \When to meet
+	plugins /
+		<= Theme $mol_theme_auto
+	tools /
+		<= Lights $mol_lights_toggle
+		<= New_link $mol_link_lazy
+			hint <= new_hint @ \New meet
+			uri_generated <= new_link \
+			sub /
+				<= New_icon $mol_icon_plus
+	body /
+		<= List $mol_infinite
+			after!month <= calendars_after!month /
+			Row!month <= Calendar!month $mol_calendar
+				month_moment <= calendar_month!month $mol_time_moment
+
