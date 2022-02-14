@@ -1,17 +1,51 @@
-$hyoo_when $mol_page
-	title @ \When to meet
+$hyoo_when $mol_book2
+	Placeholder null
+	store $mol_state_shared
 	plugins /
 		<= Theme $mol_theme_auto
-	tools /
-		<= Lights $mol_lights_toggle
-		<= New_link $mol_link_lazy
-			hint <= new_hint @ \New meet
-			uri_generated <= new_link \
-			sub /
-				<= New_icon $mol_icon_plus
-	body /
-		<= List $mol_infinite
-			after!month <= calendars_after!month /
-			Row!month <= Calendar!month $mol_calendar
-				month_moment <= calendar_month!month $mol_time_moment
-
+	pages /
+		<= Main $mol_page
+			title @ \When to meet
+			tools /
+				<= New_link $mol_link
+					hint <= new_hint @ \New meet
+					uri <= new_link \
+					sub /
+						<= New_icon $mol_icon_plus
+				<= Lights $mol_lights_toggle
+				<= Schedule_link $mol_link
+					hint @ \Schedule
+					arg * schedule \
+					sub /
+						<= Schedule_icon $mol_icon_calendar
+			body /
+				<= Descr $mol_textarea
+					value?next <=> descr?next \
+					hint @ \Describe your meeting..
+				<= Joined $mol_view sub <= joined_names /
+			foot /
+				<= Name $mol_string
+					hint @ \Your name
+					value?next <=> name?next \
+				<= Join $mol_check_box
+					checked?next <=> join?next false
+					title @ \Join
+		<= Schedule $mol_page
+			title @ \Schedule
+			tools /
+				<= Schedule_close $mol_link
+					hint @ \Close panel
+					arg * schedule null
+					sub /
+						<= Schedule_close_icon $mol_icon_cross
+			body /
+				<= List $mol_infinite
+					after!month <= calendars_after!month /
+					Row!month <= Calendar!month $mol_date_calendar
+						month_moment <= calendar_month!month $mol_time_moment
+						day_holiday!day <= day_bingo!day false
+						day_selected!day <= day_selected!day false
+						day_click!day?event <=> day_click!day?event null
+	Joined_name!id $mol_check_box
+		title <= joined_name!id \
+		checked?next <=> joined_allow!id?next true

@@ -1,0 +1,23 @@
+[hyoo_when_main] {
+	flex: 1 0 40rem;
+}
+
+[hyoo_when_main_body] {
+	padding: var(--mol_gap_block);
+}
+
+[hyoo_when_main_foot] {
+	padding: var(--mol_gap_block);
+}
+
+[hyoo_when_calendar] {
+	margin: var(--mol_gap_block);
+}
+
+[hyoo_when_joined] {
+	flex-wrap: wrap;
+}
+
+[hyoo_when_calendar_day][mol_calendar_holiday] {
+	color: yellow;
+}
