@@ -9779,7 +9779,7 @@ var $;
             return "";
         }
         loading() {
-            return "lazy";
+            return "eager";
         }
     }
     $.$mol_image = $mol_image;
