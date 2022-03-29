@@ -239,237 +239,12 @@ $mol_string $mol_view
 		<= Submit $mol_hotkey
 			key * enter?event <=> submit?event null
 
-$mol_textarea $mol_view
-	attr *
-		^
-		mol_textarea_clickable <= clickable?val false
-		mol_textarea_sidebar_showed <= sidebar_showed false
-	event *
-		keydown?event <=> press?event null
-		pointermove?event <=> hover?event null
-	sub /
-		<= Edit $mol_textarea_edit
-			value?val <=> value?val \
-			hint <= hint \ 
-			enabled <= enabled true
-			length_max <= length_max Infinity
-			selection?val <=> selection?val /number
-		<= View $mol_text_code
-			text <= value
-			render_visible_only false
-			row_numb!index <= row_numb!index 0
-			sidebar_showed <= sidebar_showed
-			highlight <= highlight \
-
-$mol_textarea_edit $mol_string
-	dom_name \textarea
-	field *
-		^
-		scrollTop 0
-
-$mol_page $mol_view
-	dom_name \article
-	sub /
-		<= Head $mol_view
-			minimal_height 64
-			dom_name \header
-			sub <= head /
-				<= Title $mol_view
-					dom_name \h1
-					sub /
-						<= title
-				<= Tools $mol_view
-					sub <= tools /$mol_view_content
-		<= Body $mol_scroll
-			scroll_top?val => body_scroll_top?val
-			sub <= body /$mol_view_content
-		<= Foot $mol_view
-			dom_name \footer
-			sub <= foot /$mol_view
-
-$mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
-
-$mol_pop $mol_view
-	event * keydown?event <=> keydown?event null
-	showed?val false
-	align_vert \
-	align_hor \
-	sub /
-		<= Anchor null
-	sub_visible /
-		<= Anchor
-		<= Bubble $mol_pop_bubble
-			align <= align \bottom_center
-			content <= bubble_content /$mol_view_content
-			height_max <= height_max 9999
-
-$mol_pop_bubble $mol_scroll
-	sub <= content /$mol_view_content
-	style *
-		^
-		maxHeight <= height_max 9999
-	attr *
-		^
-		mol_pop_align <= align \
-		tabindex 0
-
-$mol_pick $mol_pop
-	Anchor <= Trigger $mol_check
-		minimal_width 40
-		minimal_height 40
-		enabled <= trigger_enabled true
-		checked?val <=> showed?val
-		sub <= trigger_content /$mol_view_content
-		hint <= hint \
-
-$mol_icon_chevron $mol_icon path \M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z
-
-$mol_icon_chevron_left $mol_icon path \M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z
-
-$mol_icon_chevron_right $mol_icon path \M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z
-
-$mol_hor $mol_view
-
-$mol_calendar $mol_list
-	sub /
-		<= Head $mol_view
-			sub <= head /
-				<= Title $mol_view
-					minimal_height 24
-					sub /
-						<= title \
-		<= Weekdays $mol_hor
-			sub <= weekdays /$mol_view
-	weeks /$mol_view
-	-
-	Weekday!index $mol_calendar_day
-		holiday <= weekend!index false
-		sub /
-			<= weekday!index \
-	-
-	Week!row $mol_hor
-		sub <= week_days!row /$mol_view
-	-
-	Day!day $mol_calendar_day
-		ghost <= day_ghost!day false
-		holiday <= day_holiday!day false
-		selected <= day_selected!day false
-		theme <= day_theme!day \
-		sub <= day_content!day /
-			<= day_text!day \
-	-
-	month_string \
-	month_moment $mol_time_moment
-
-$mol_calendar_day $mol_view
-	minimal_height 24
-	minimal_width 36
-	attr *
-		mol_calendar_holiday <= holiday false
-		mol_calendar_ghost <= ghost false
-		mol_calendar_selected <= selected false
-		mol_theme <= theme \
-
-$mol_date $mol_pick
-	Icon $mol_icon_calendar
-	-
-	bubble_content /
-		<= Input $mol_string
-			value?val <=> value?val \
-			hint <= hint \YYYY-MM-DD hh:mm
-			enabled <= enabled true
-		<= Calendar $mol_date_calendar
-			month_moment <= month_moment <= value_moment
-			day_selected!day <= day_selected!day false
-			day_click!day?event <=> day_click!day?event null
-			Title => Calendar_title
-			head /
-				<= Calendar_tools $mol_view
-					sub /
-						<= Prev $mol_button_minor
-							hint <= prev_hint @ \Previous month
-							click?event <=> prev?event null
-							sub /
-								<= Prev_icon $mol_icon_chevron_left
-						<= Calendar_title
-						<= Next $mol_button_minor
-							hint <= next_hint @ \Next month
-							click?event <=> next?event null
-							sub /
-								<= Next_icon $mol_icon_chevron_right
-	-
-	value_number?val NaN
-	value_moment?val $mol_time_moment
-
-$mol_date_calendar $mol_calendar
-	day_content!day /
-		<= Day_button!day $mol_button_minor
-			title <= day_text!day
-			event_click?event <=> day_click!day?event null
-			minimal_height 24
-
-$mol_infinite $mol_list
-	after!id /
-	Row!id $mol_view
-
-$hyoo_when $mol_book2
-	Placeholder null
-	store $mol_state_shared
-	plugins /
-		<= Theme $mol_theme_auto
-	pages /
-		<= Main $mol_page
-			title @ \When to meet
-			tools /
-				<= New_link $mol_link
-					hint <= new_hint @ \New meet
-					uri <= new_link \
-					sub /
-						<= New_icon $mol_icon_plus
-				<= Github $mol_link_source
-					uri \https://github.com/hyoo-ru/when.hyoo.ru/
-				<= Lights $mol_lights_toggle
-				<= Schedule_link $mol_link
-					hint @ \Schedule
-					arg * schedule \
-					sub /
-						<= Schedule_icon $mol_icon_calendar
-			body /
-				<= Descr $mol_textarea
-					value?next <=> descr?next \
-					hint @ \Describe your meeting..
-				<= Joined $mol_view sub <= joined_names /
-			foot /
-				<= Name $mol_string
-					hint @ \Your name
-					value?next <=> name?next \
-				<= Join $mol_check_box
-					checked?next <=> join?next false
-					title @ \Join
-		<= Schedule $mol_page
-			title @ \Schedule
-			tools /
-				<= Schedule_close $mol_link
-					hint @ \Close panel
-					arg * schedule null
-					sub /
-						<= Schedule_close_icon $mol_icon_cross
-			body /
-				<= List $mol_infinite
-					after!month <= calendars_after!month /
-					Row!month <= Calendar!month $mol_date_calendar
-						month_moment <= calendar_month!month $mol_time_moment
-						day_holiday!day <= day_bingo!day false
-						day_selected!day <= day_selected!day false
-						day_click!day?event <=> day_click!day?event null
-	Joined_name!id $mol_check_box
-		title <= joined_name!id \
-		checked?next <=> joined_allow!id?next true
-
 $mol_float $mol_view
 	style *
 		^
 		minHeight \auto
+
+$mol_icon_chevron $mol_icon path \M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z
 
 $mol_check_expand $mol_check
 	minimal_height 40
@@ -623,3 +398,228 @@ $mol_text_image $mol_view
 		<= Image $mol_image
 			uri <= link
 			title <= title?val \
+
+$mol_textarea $mol_view
+	attr *
+		^
+		mol_textarea_clickable <= clickable?val false
+		mol_textarea_sidebar_showed <= sidebar_showed false
+	event *
+		keydown?event <=> press?event null
+		pointermove?event <=> hover?event null
+	sub /
+		<= Edit $mol_textarea_edit
+			value?val <=> value?val \
+			hint <= hint \ 
+			enabled <= enabled true
+			length_max <= length_max Infinity
+			selection?val <=> selection?val /number
+		<= View $mol_text_code
+			text <= value
+			render_visible_only false
+			row_numb!index <= row_numb!index 0
+			sidebar_showed <= sidebar_showed
+			highlight <= highlight \
+
+$mol_textarea_edit $mol_string
+	dom_name \textarea
+	field *
+		^
+		scrollTop 0
+
+$mol_page $mol_view
+	dom_name \article
+	sub /
+		<= Head $mol_view
+			minimal_height 64
+			dom_name \header
+			sub <= head /
+				<= Title $mol_view
+					dom_name \h1
+					sub /
+						<= title
+				<= Tools $mol_view
+					sub <= tools /$mol_view_content
+		<= Body $mol_scroll
+			scroll_top?val => body_scroll_top?val
+			sub <= body /$mol_view_content
+		<= Foot $mol_view
+			dom_name \footer
+			sub <= foot /$mol_view
+
+$mol_icon_cross $mol_icon path \M19 6.41L17.59 5L12 10.59L6.41 5L5 6.41L10.59 12L5 17.59L6.41 19L12 13.41L17.59 19L19 17.59L13.41 12L19 6.41Z
+
+$mol_pop $mol_view
+	event * keydown?event <=> keydown?event null
+	showed?val false
+	align_vert \
+	align_hor \
+	sub /
+		<= Anchor null
+	sub_visible /
+		<= Anchor
+		<= Bubble $mol_pop_bubble
+			align <= align \bottom_center
+			content <= bubble_content /$mol_view_content
+			height_max <= height_max 9999
+
+$mol_pop_bubble $mol_scroll
+	sub <= content /$mol_view_content
+	style *
+		^
+		maxHeight <= height_max 9999
+	attr *
+		^
+		mol_pop_align <= align \
+		tabindex 0
+
+$mol_pick $mol_pop
+	Anchor <= Trigger $mol_check
+		minimal_width 40
+		minimal_height 40
+		enabled <= trigger_enabled true
+		checked?val <=> showed?val
+		sub <= trigger_content /$mol_view_content
+		hint <= hint \
+
+$mol_icon_chevron_left $mol_icon path \M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z
+
+$mol_icon_chevron_right $mol_icon path \M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z
+
+$mol_hor $mol_view
+
+$mol_calendar $mol_list
+	sub /
+		<= Head $mol_view
+			sub <= head /
+				<= Title $mol_view
+					minimal_height 24
+					sub /
+						<= title \
+		<= Weekdays $mol_hor
+			sub <= weekdays /$mol_view
+	weeks /$mol_view
+	-
+	Weekday!index $mol_calendar_day
+		holiday <= weekend!index false
+		sub /
+			<= weekday!index \
+	-
+	Week!row $mol_hor
+		sub <= week_days!row /$mol_view
+	-
+	Day!day $mol_calendar_day
+		ghost <= day_ghost!day false
+		holiday <= day_holiday!day false
+		selected <= day_selected!day false
+		theme <= day_theme!day \
+		sub <= day_content!day /
+			<= day_text!day \
+	-
+	month_string \
+	month_moment $mol_time_moment
+
+$mol_calendar_day $mol_view
+	minimal_height 24
+	minimal_width 36
+	attr *
+		mol_calendar_holiday <= holiday false
+		mol_calendar_ghost <= ghost false
+		mol_calendar_selected <= selected false
+		mol_theme <= theme \
+
+$mol_date $mol_pick
+	Icon $mol_icon_calendar
+	-
+	bubble_content /
+		<= Input $mol_string
+			value?val <=> value?val \
+			hint <= hint \YYYY-MM-DD hh:mm
+			enabled <= enabled true
+		<= Calendar $mol_date_calendar
+			month_moment <= month_moment <= value_moment
+			day_selected!day <= day_selected!day false
+			day_click!day?event <=> day_click!day?event null
+			Title => Calendar_title
+			head /
+				<= Calendar_tools $mol_view
+					sub /
+						<= Prev $mol_button_minor
+							hint <= prev_hint @ \Previous month
+							click?event <=> prev?event null
+							sub /
+								<= Prev_icon $mol_icon_chevron_left
+						<= Calendar_title
+						<= Next $mol_button_minor
+							hint <= next_hint @ \Next month
+							click?event <=> next?event null
+							sub /
+								<= Next_icon $mol_icon_chevron_right
+	-
+	value_number?val NaN
+	value_moment?val $mol_time_moment
+
+$mol_date_calendar $mol_calendar
+	day_content!day /
+		<= Day_button!day $mol_button_minor
+			title <= day_text!day
+			event_click?event <=> day_click!day?event null
+			minimal_height 24
+
+$mol_infinite $mol_list
+	after!id /
+	Row!id $mol_view
+
+$hyoo_when $mol_book2
+	Placeholder null
+	store $mol_state_shared
+	plugins /
+		<= Theme $mol_theme_auto
+	pages /
+		<= Main $mol_page
+			title @ \When to meet
+			tools /
+				<= New_link $mol_link
+					hint <= new_hint @ \New meet
+					uri <= new_link \
+					sub /
+						<= New_icon $mol_icon_plus
+				<= Github $mol_link_source
+					uri \https://github.com/hyoo-ru/when.hyoo.ru/
+				<= Lights $mol_lights_toggle
+				<= Schedule_link $mol_link
+					hint @ \Schedule
+					arg * schedule \
+					sub /
+						<= Schedule_icon $mol_icon_calendar
+			body /
+				<= Descr $mol_textarea
+					value?next <=> descr?next \
+					hint @ \Describe your meeting..
+				<= Joined $mol_view sub <= joined_names /
+			foot /
+				<= Name $mol_string
+					hint @ \Your name
+					value?next <=> name?next \
+				<= Join $mol_check_box
+					checked?next <=> join?next false
+					title @ \Join
+		<= Schedule $mol_page
+			title @ \Schedule
+			tools /
+				<= Schedule_close $mol_link
+					hint @ \Close panel
+					arg * schedule null
+					sub /
+						<= Schedule_close_icon $mol_icon_cross
+			body /
+				<= List $mol_infinite
+					after!month <= calendars_after!month /
+					Row!month <= Calendar!month $mol_date_calendar
+						month_moment <= calendar_month!month $mol_time_moment
+						day_holiday!day <= day_bingo!day false
+						day_selected!day <= day_selected!day false
+						day_click!day?event <=> day_click!day?event null
+	Joined_name!id $mol_check_box
+		title <= joined_name!id \
+		checked?next <=> joined_allow!id?next true

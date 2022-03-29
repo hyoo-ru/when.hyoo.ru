@@ -295,9 +295,9 @@
     "$mol_infinite_infinite.view.tree"
   ],
   "dependencies": {
+    "colorette": "*",
     "jsdom": "*",
     "fake-indexeddb": "*",
-    "colorette": "*",
     "chokidar": "*"
   }
 }
