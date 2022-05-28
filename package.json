@@ -162,6 +162,7 @@
     "$mol_icon_brightness",
     "$mol_icon_calendar",
     "$mol_textarea",
+    "$mol_stack",
     "$mol_text_code",
     "$mol_text",
     "$mol_list",
