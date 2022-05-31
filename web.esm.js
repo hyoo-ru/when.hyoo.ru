@@ -6300,6 +6300,7 @@ var $;
         'text-link-http': /\b(https?:\/\/[^\s,.;:!?")]+(?:[,.;:!?")][^\s,.;:!?")]+)+)/,
     });
     $.$mol_syntax2_md_code = new $mol_syntax2({
+        'code-indent': /\t+/,
         'code-docs': /\/\/\/.*?$/,
         'code-comment-block': /(?:\/\*[^]*?\*\/|\/\+[^]*?\+\/|<![^]*?>)/,
         'code-link': /(?:\w+:\/\/|#)\S+?(?=\s|\\\\|""|$)/,
@@ -10142,7 +10143,13 @@ var $;
                     return ids;
                 const window_height = $mol_window.size().height;
                 if (rect.bottom < window_height * 3) {
-                    ids = [...ids, ...this.after(ids[ids.length - 1])];
+                    try {
+                        const news = this.after(ids[ids.length - 1]);
+                        ids = [...ids, ...news];
+                    }
+                    catch (error) {
+                        $mol_fail_log(error);
+                    }
                 }
                 return ids;
             }
