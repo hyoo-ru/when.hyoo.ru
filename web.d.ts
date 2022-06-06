@@ -3277,6 +3277,7 @@ declare namespace $ {
         New_link(): $$.$mol_link;
         Github(): $mol_link_source;
         Lights(): $$.$mol_lights_toggle;
+        chat_seed(): string;
         chat_pages(): $mol_page[];
         Chat(): $$.$mol_chat;
         Schedule_icon(): $mol_icon_calendar;
@@ -3319,6 +3320,7 @@ declare namespace $.$$ {
         calendars_after(prev: $mol_time_moment): $mol_time_moment[];
         calendar_month(month: $mol_time_moment): $mol_time_moment;
         schedule(next?: boolean): boolean;
+        chat_seed(): string;
         pages(): $mol_page[];
         joined(next?: number[]): number[];
         join(next?: boolean): boolean;

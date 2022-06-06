@@ -11112,11 +11112,15 @@ var $;
             const obj = new this.$.$mol_lights_toggle();
             return obj;
         }
+        chat_seed() {
+            return "";
+        }
         chat_pages() {
             return this.Chat().pages();
         }
         Chat() {
             const obj = new this.$.$mol_chat();
+            obj.seed = () => this.chat_seed();
             return obj;
         }
         Schedule_icon() {
@@ -11391,6 +11395,9 @@ var $;
             schedule(next) {
                 const arg = next === undefined ? undefined : next ? '' : null;
                 return this.$.$mol_state_arg.value('schedule', arg) !== null;
+            }
+            chat_seed() {
+                return '#!meet=' + this.$.$mol_state_arg.value('meet');
             }
             pages() {
                 return [
