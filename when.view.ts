@@ -59,6 +59,7 @@ namespace $.$$ {
 			return [
 				this.Main(),
 				... this.schedule() ? [ this.Schedule() ] : [],
+				... this.chat_pages(),
 			]
 		}
 		

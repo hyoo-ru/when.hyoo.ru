@@ -15,6 +15,8 @@ $hyoo_when $mol_book2
 				<= Github $mol_link_source
 					uri \https://github.com/hyoo-ru/when.hyoo.ru/
 				<= Lights $mol_lights_toggle
+				<= Chat $mol_chat
+					pages => chat_pages
 				<= Schedule_link $mol_link
 					hint @ \Schedule
 					arg * schedule \
