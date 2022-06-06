@@ -54,6 +54,10 @@ namespace $.$$ {
 			return this.$.$mol_state_arg.value( 'schedule', arg ) !== null
 		}
 		
+		override chat_seed() {
+			return '#!meet=' + this.$.$mol_state_arg.value( 'meet' )
+		}
+		
 		@ $mol_mem
 		pages() {
 			return [
