@@ -4249,25 +4249,6 @@ var $;
 var $;
 (function ($) {
     $mol_test({
-        'null by default'() {
-            const key = String(Math.random());
-            $mol_assert_equal($mol_state_session.value(key), null);
-        },
-        'storing'() {
-            const key = String(Math.random());
-            $mol_state_session.value(key, '$mol_state_session_test');
-            $mol_assert_equal($mol_state_session.value(key), '$mol_state_session_test');
-            $mol_state_session.value(key, null);
-            $mol_assert_equal($mol_state_session.value(key), null);
-        },
-    });
-})($ || ($ = {}));
-//mol/state/session/session.test.ts
-;
-"use strict";
-var $;
-(function ($) {
-    $mol_test({
         'parse and serial'() {
             $mol_assert_equal(new $mol_time_duration('P42.1Y').toString(), 'P42.1YT');
             $mol_assert_equal(new $mol_time_duration('P42.1M').toString(), 'P42.1MT');
