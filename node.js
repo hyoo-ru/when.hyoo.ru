@@ -253,9 +253,9 @@ var $node = new Proxy({ require }, {
         while (!fs.existsSync(path.join(dir, suffix))) {
             const parent = path.resolve(dir, '..');
             if (parent === dir) {
-                $$.$mol_exec('.', 'npm', 'install', name);
+                $$.$mol_exec('.', 'npm', 'install', '--omit=dev', name);
                 try {
-                    $$.$mol_exec('.', 'npm', 'install', '@types/' + name);
+                    $$.$mol_exec('.', 'npm', 'install', '--omit=dev', '@types/' + name);
                 }
                 catch { }
                 break;
@@ -1923,9 +1923,6 @@ var $;
 //mol/wire/solo/solo.ts
 ;
 "use strict";
-//mol/type/error/error.ts
-;
-"use strict";
 var $;
 (function ($) {
     function $mol_wire_plex(host, field, descr) {
@@ -2696,6 +2693,9 @@ var $;
 //mol/type/result/result.ts
 ;
 "use strict";
+//mol/type/error/error.ts
+;
+"use strict";
 //mol/type/override/override.ts
 ;
 "use strict";
@@ -3358,7 +3358,7 @@ var $;
 "use strict";
 var $;
 (function ($) {
-    $mol_dom_context.indexedDB = $node['fake-indexeddb'];
+    $mol_dom_context.indexedDB = $node['fake-indexeddb'].indexedDB;
 })($ || ($ = {}));
 //mol/db/db.node.ts
 ;
