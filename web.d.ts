@@ -1180,16 +1180,15 @@ declare namespace $ {
 declare namespace $ {
     let $hyoo_crowd_tokenizer: $mol_regexp<{
         readonly token: string;
+        readonly 'line-break': string;
         readonly indents: string;
-        readonly spaces: string;
         readonly emoji: string;
         readonly Word: string;
         readonly word: string;
         readonly others: string;
-        readonly 'line-break': string;
+        readonly space: string;
         readonly win_end: string;
         readonly mac_end: string;
-        readonly tab: string;
     }>;
 }
 
@@ -1920,8 +1919,8 @@ declare namespace $ {
             src: string;
             srcdoc: any;
             allow: string;
+            allowFullscreen: boolean;
         };
-        fullscreen(): boolean;
         accelerometer(): boolean;
         autoplay(): boolean;
         encription(): boolean;
@@ -1930,6 +1929,7 @@ declare namespace $ {
         uri(val?: any): string;
         html(): any;
         allow(): string;
+        fullscreen(): boolean;
     }
 }
 
