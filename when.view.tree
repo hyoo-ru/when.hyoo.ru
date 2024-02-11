@@ -1,6 +1,6 @@
 $hyoo_when $mol_book2
 	Placeholder null
-	store $mol_state_shared
+	store null
 	plugins /
 		<= Theme $mol_theme_auto
 	pages /

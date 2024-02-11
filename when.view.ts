@@ -68,7 +68,7 @@ namespace $.$$ {
 		}
 		
 		@ $mol_mem
-		joined( next?: number[] ) {
+		joined( next?: number[] ): any[] {
 			return this.meet()?.sub( 'joined' ).list( next ).map( Number ) ?? []
 		}
 		
@@ -134,7 +134,7 @@ namespace $.$$ {
 		day_selected( day: string, next?: boolean ) {
 			
 			const peer = this.store().peer()
-			let available = this.joined_available( peer )
+			let available = this.joined_available( peer ) as any[]
 			if( next === undefined ) return available.includes( day )
 			
 			available = this.joined_available( peer, next
