@@ -42,7 +42,7 @@ $hyoo_when $mol_book2
 					hint @ \Close panel
 					arg * schedule null
 					sub /
-						<= Schedule_close_icon $mol_icon_cross
+						<= Schedule_close_icon $mol_icon_close
 			body /
 				<= List $mol_infinite
 					after!month <= calendars_after!month /
